@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap5',
+    'app',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # a activer si beoin d'un middleware personalyser
+    #'app.middleware.MiddlewarePersonalyser'
 ]
 
 ROOT_URLCONF = 'projet.urls'
@@ -54,7 +59,7 @@ ROOT_URLCONF = 'projet.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,8 +80,12 @@ WSGI_APPLICATION = 'projet.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'database5',
+        'HOST':"localhost",
+        "USER":"root",
+        "PASSWORD":'root',
+        "PORT":3306
     }
 }
 
@@ -116,8 +125,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS =[BASE_DIR / 'static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Ajouter des média pour la database, comme des Images ou autre
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
